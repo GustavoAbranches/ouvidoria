@@ -32,10 +32,10 @@ curl -X POST http://localhost:5000/analisar_sentimento \
   -d '{"texto": "Esse produto é horrível"}'
 echo -e "\n"
 
-echo "=== deletar comentario ID 1 ==="
-curl -X DELETE http://localhost:5000/comentarios/1
-echo -e "\n"
+# echo "=== deletar comentario ID 1 ==="
+# curl -X DELETE http://localhost:5000/comentarios/1
+# echo -e "\n"
 
-echo "=== deletando usuario ID 1 ==="
-curl -X DELETE http://localhost:5000/usuarios/1
-echo -e "\n"
+# echo "=== deletando usuario ID 1 ==="
+# curl -X DELETE http://localhost:5000/usuarios/1
+# echo -e "\n"

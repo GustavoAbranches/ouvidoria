@@ -1,13 +1,16 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import os
+from flask import Flask
 from flask_cors import CORS
 from transformers import pipeline
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))  # <-- ESSENCIAL
 
 app = Flask(__name__)
 CORS(app)
 
-# configura o banco SQLite
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'banco.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -107,5 +110,17 @@ def analisar_sentimento():
 
 if __name__ == '__main__':
     with app.app_context():
+        print(">> Criando banco e tabelas...")
         db.create_all()
+        print(">> Tabelas criadas.")
+
+        # FORÇA CRIAÇÃO com um INSERT fake (opcional)
+        if not Usuario.query.first():
+            user = Usuario(tipo='teste', email='teste@teste.com', senha='123')
+            db.session.add(user)
+            db.session.commit()
+            print(">> Usuário dummy criado.")
     app.run(debug=True)
+
+print("Banco configurado em:", app.config['SQLALCHEMY_DATABASE_URI'])
+
