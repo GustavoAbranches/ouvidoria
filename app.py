@@ -5,7 +5,7 @@ from flask import Flask
 from flask_cors import CORS
 from transformers import pipeline
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))  # <-- ESSENCIAL
+BASE_DIR = os.path.abspath(os.path.dirname(__file__)) 
 
 app = Flask(__name__)
 CORS(app)
@@ -64,7 +64,7 @@ def deletar_usuario(id):
     db.session.commit()
     return jsonify({"mensagem": "Usuário deletado com sucesso"})
 
-#ROTAS COMENTARIO
+#ROTAS DE COMENTARIO
 
 @app.route('/comentarios', methods=['POST'])
 def criar_comentario():
@@ -95,7 +95,7 @@ def deletar_comentario(id):
     db.session.commit()
     return jsonify({"mensagem": "Comentário deletado"})
 
-#ROTAS EXTRAS
+#ROTAS DE ANALISE DE SENTIMENTOS
 
 @app.route('/analisar_sentimento', methods=['POST'])
 def analisar_sentimento():
@@ -114,7 +114,7 @@ if __name__ == '__main__':
         db.create_all()
         print(">> Tabelas criadas.")
 
-        # FORÇA CRIAÇÃO com um INSERT fake (opcional)
+        #CRIA UM USUARIO DE TESTE
         if not Usuario.query.first():
             user = Usuario(tipo='teste', email='teste@teste.com', senha='123')
             db.session.add(user)
